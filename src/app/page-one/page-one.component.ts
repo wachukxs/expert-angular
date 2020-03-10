@@ -1,9 +1,10 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 
 import { ProductObj } from './product';
 @Component({
   selector: 'app-page-one',
   templateUrl: './page-one.component.html',
+  styles: ['td {color: red;}'],
   styleUrls: ['./page-one.component.css']
 })
 export class PageOneComponent implements OnInit, OnChanges {
@@ -45,6 +46,7 @@ productArr: Array <ProductObj> = [{
     imageUrl: 'assets/images/hammer.png'
   }];
 
+  @Input()
   listFilter: string = 'cart'; // usr's last entered filter
 
   showImage: boolean = false;
@@ -56,10 +58,16 @@ productArr: Array <ProductObj> = [{
   constructor() { }
 
   ngOnInit() {
+    console.log('ngOnInit called');
   }
 
-  ngOnChanges(): void {
-    console.log('sth changed');
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('sth changed', changes);
+  }
+
+  onRatingClicked(message: string): void {
+    this.pageTitle = `Product List: ${message}`;
+    console.log('new value', message);
   }
 
 }
