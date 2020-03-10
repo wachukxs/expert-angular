@@ -1,0 +1,46 @@
+<p>
+    page-one works! {{ pageTitle }}
+</p>
+
+<div class="alert">
+    This is an alert!
+</div>
+
+<table *ngIf="productArr.length > 0">
+    <thead>
+        <tr>
+            <label for="filter">Filter by:</label>
+            <input type="text" name="filter" id="filter" [(ngModel)]='listFilter'>
+        </tr>
+        <tr>
+            You're filtering by {{listFilter}}
+        </tr>
+        <tr>
+            <button (click)='toggleImage()' class="btn">
+                {{showImage? 'Hide' : 'Show'}} Image
+            </button>
+        </tr>
+        <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Product Code</th>
+            <th>Release Date</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Star Rating</th>
+            <th>Image URL</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of productArr | productFilter: listFilter">
+            <td>{{ product.productId }}</td>
+            <td> <img *ngIf="showImage" [style.width.px]='imageWidth' [src]="product.imageUrl" [title]='product.productName' alt='image of {{product.productName}}'></td>
+            <td>{{ product.productCode }}</td>
+            <td>{{ product.releaseDate }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.price | currency: 'USD' : true : '1.2-2' }}</td>
+            <td>{{ product.starRating }}</td>
+            <td>{{ product.imageUrl }}</td>
+        </tr>
+    </tbody>
+</table>
