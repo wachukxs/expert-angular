@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 
 import { ProductObj } from './product';
 @Component({
@@ -6,7 +6,7 @@ import { ProductObj } from './product';
   templateUrl: './page-one.component.html',
   styleUrls: ['./page-one.component.css']
 })
-export class PageOneComponent implements OnInit {
+export class PageOneComponent implements OnInit, OnChanges {
 
   // tslint:disable-next-line: no-inferrable-types
   pageTitle: string = 'PageOne Component Title';
@@ -56,6 +56,10 @@ productArr: Array <ProductObj> = [{
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(): void {
+    console.log('sth changed');
   }
 
 }
