@@ -21,28 +21,44 @@
             </button>
         </tr>
         <tr>
+            <th>Product Name</th>
             <th>Product ID</th>
-            <th>Product Image/Name</th>
+            <th>Product Image</th>
             <th>Product Code</th>
             <th>Release Date</th>
             <th>Description</th>
             <th>Price</th>
             <th>Star Rating</th>
-            <th>Image URL</th>
+            <th>edit Image URL</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let product of productArr | productFilter: listFilter">
+            <td>{{ product.productName }}</td>
             <td>{{ product.productId }}</td>
-            <td> <img *ngIf="showImage" [style.width.px]='imageWidth' [src]="product.imageUrl" [title]='product.productName' alt='image of {{product.productName}}'></td>
-            <td>{{ product.productCode }}</td>
+            <td>
+                <a [routerLink]="['/product', product.productId]">
+                    <img *ngIf="showImage" [style.width.px]='imageWidth' [src]="product.imageUrl" [title]='product.productName' alt='image of {{product.productName}}'>
+                </a>
+                
+            </td>
+            <td (click)="goelsewhere(product.productId)">
+                {{ product.productCode }}
+            </td>
             <td>{{ product.releaseDate }}</td>
             <td>{{ product.description }}</td>
             <td>{{ product.price | currency: 'USD' : true : '1.2-2' }}</td>
             <td>
                 <app-star [rating]='product.starRating' (ratingClicked)='onRatingClicked($event)'></app-star>
             </td>
-            <td>{{ product.imageUrl }}</td>
+            <td>
+                <a [routerLink]="['/product', product.productId, 'edit']"
+                    [queryParams]="{canEdit: 'true'}"
+                    fragment="loading"
+                >
+                    {{ product.imageUrl }}
+                </a>
+            </td>
         </tr>
     </tbody>
 </table>

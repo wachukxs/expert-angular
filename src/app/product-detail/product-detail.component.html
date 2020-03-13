@@ -1,0 +1,19 @@
+<p>product-detail works!</p>
+
+<h2>this is a product</h2>
+
+<div>
+    {{obj.productName}}
+</div>
+
+<table>
+    <tr>
+        <td>{{ obj.productCode }}</td>
+            <td>{{ obj.releaseDate }}</td>
+            <td>{{ obj.description }}</td>
+    </tr>
+</table>
+
+<div>
+    <a [routerLink]="['/product', 5]">another one</a>
+</div>
