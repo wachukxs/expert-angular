@@ -11,12 +11,19 @@ import { StarComponent } from './star/star.component';
 import { PageTwoComponent } from './page-two/page-two.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { AProductComponent } from './a-product/a-product.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { AuthService } from './auth.service';
+import { LoginService } from './login.service';
 
 const appRoutes: Routes = [
   { path: 'home', component: PageOneComponent },
   { path: '', component: PageTwoComponent },
-  { path: 'product/:id', component: ProductDetailComponent },
-  { path: 'product/:id/edit', component: EditProductComponent }
+  { path: 'product', canActivate: [LoginService], component: AProductComponent, children: [
+      { path: 'product/:id', component: ProductDetailComponent },
+      { path: 'product/:id/edit', component: EditProductComponent }
+  ] },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
@@ -27,7 +34,9 @@ const appRoutes: Routes = [
     StarComponent,
     PageTwoComponent,
     ProductDetailComponent,
-    EditProductComponent
+    EditProductComponent,
+    AProductComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +44,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
