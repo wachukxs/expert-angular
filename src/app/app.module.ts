@@ -19,9 +19,13 @@ import { LoginService } from './login.service';
 const appRoutes: Routes = [
   { path: 'home', component: PageOneComponent },
   { path: '', component: PageTwoComponent },
-  { path: 'product', canActivate: [LoginService], component: AProductComponent, children: [
-      { path: 'product/:id', component: ProductDetailComponent },
-      { path: 'product/:id/edit', component: EditProductComponent }
+  { path: 'product',
+    /* canActivate: [LoginService], */
+    canActivateChild: [LoginService],
+    component: AProductComponent,
+    children: [
+      { path: ':id', component: ProductDetailComponent },
+      { path: ':id/edit', component: EditProductComponent }
   ] },
   { path: '**', component: NotFoundComponent }
 ];
