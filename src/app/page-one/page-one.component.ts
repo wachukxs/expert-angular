@@ -6,6 +6,8 @@ import { NgForm, FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
+import { FormActions, EditPassword, EditUsername } from './store/form.actions';
+
 @Component({
   selector: 'app-page-one',
   templateUrl: './page-one.component.html',
@@ -62,6 +64,12 @@ export class PageOneComponent implements OnInit, OnChanges {
 
   onSumbit(form: NgForm) { // form: HTMLFormElement
     console.log('Submited!', form); // ain't seeing form.value.email|username
+  }
+
+  onFormChange(event: any) {
+    console.log(event, 'new value:', event.target.value);
+
+    this.store.dispatch(new EditPassword(event.target.value) );
   }
 
 }

@@ -7,12 +7,12 @@ export enum EFormActions {
 
 export class EditPassword implements Action {
     readonly type = EFormActions.EDIT_PASSWORD;
-    payload: string;
+    constructor(public payload: string) {}
 }
 
 export class EditUsername implements Action {
     readonly type = EFormActions.EDIT_USERNAME;
-    payload: string;
+    constructor(public payload: string) {}
 }
 
 export type FormActions = EditPassword | EditUsername;

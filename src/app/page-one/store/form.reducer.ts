@@ -8,10 +8,16 @@ const initialState: Array<string> = ['wachukxs', 'passworded'];
 export function formReducer(state = initialState, action: FormActions) {
     switch (action.type) {
         case EFormActions.EDIT_PASSWORD:
-            return { ...initialState, password: action.payload };
+            const editedPasswordState: Array<string> = [...initialState];
+
+            editedPasswordState[1] = action.payload;
+            return editedPasswordState;
         case EFormActions.EDIT_USERNAME:
-            return { ...initialState, username: action.payload };
+            const editedUsernameState: Array<string> = [...initialState];
+
+            editedUsernameState[0] = action.payload;
+            return editedUsernameState;
         default:
-            return initialState;
+            return [...initialState];
     }
 }
