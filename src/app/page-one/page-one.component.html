@@ -16,7 +16,7 @@
             You're filtering by {{listFilter}}
         </tr>
         <tr>
-            <button (click)='toggleImage()' class="btn">
+            <button (click)='toggleImage()' class="btn btn-primary">
                 {{showImage? 'Hide' : 'Show'}} Image
             </button>
         </tr>
@@ -61,4 +61,24 @@
             </td>
         </tr>
     </tbody>
+
+    
 </table>
+
+<hr>
+
+<!-- https://stackoverflow.com/a/48351996/9259701 -->
+<form #f='ngForm' (ngSubmit)='onSumbit(f)'> <!-- (ngSubmit)='onSumbit(f)' -->
+    <label>Username:</label> <input type="text" name="username" id="username" required>
+
+    <label>Email:</label> <input type="email" name="email" id="email" required email>
+
+    <!-- <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button> -->
+    <input type="submit" value="Submit" [disabled]="!f.valid">
+</form>
+
+<hr>
+
+<div *ngFor="let item of morkForm | async">
+    {{item}}
+</div>

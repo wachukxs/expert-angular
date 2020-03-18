@@ -1,7 +1,10 @@
-import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input, ViewChild } from '@angular/core';
 import { ProductListService } from '../product-list.service';
 import { ProductObj } from './product';
 import { Router } from '@angular/router';
+import { NgForm, FormsModule } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-page-one',
@@ -23,14 +26,22 @@ export class PageOneComponent implements OnInit, OnChanges {
 
   showImage: boolean = false;
 
+  morkForm: Observable< Array<string> >;
+
+  /* @ViewChild('f', {}) theForm: NgForm; */
+
   toggleImage(): void {
     this.showImage = !this.showImage;
   }
 
-  constructor(private router: Router, private productListService: ProductListService) { }
-
+  constructor(private router: Router,
+              private productListService: ProductListService,
+              private store: Store<{form: Array<string>}>) { } // the data type of our initial state
+  // or Store<{form: Array<sting> }>
   ngOnInit() {
     console.log('ngOnInit called');
+    this.morkForm = this.store.select('form');
+
     this.productArr = this.productListService.getProducts();
 
     console.log('the obj', this.productListService.getProduct(2));
@@ -47,6 +58,10 @@ export class PageOneComponent implements OnInit, OnChanges {
 
   goelsewhere(id: string|number): void {
     this.router.navigate(['/id', id, 'else'], {queryParams: {canNotEdit: '894393'}, fragment: 'this'} );
+  }
+
+  onSumbit(form: NgForm) { // form: HTMLFormElement
+    console.log('Submited!', form); // ain't seeing form.value.email|username
   }
 
 }

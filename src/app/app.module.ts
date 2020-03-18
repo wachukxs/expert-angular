@@ -16,6 +16,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthService } from './auth.service';
 import { LoginService } from './login.service';
 
+import { StoreModule } from '@ngrx/store';
+import { formReducer } from './page-one/store/form.reducer';
+
 const appRoutes: Routes = [
   { path: 'home', component: PageOneComponent },
   { path: '', component: PageTwoComponent },
@@ -46,7 +49,8 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({form: formReducer})
   ],
   providers: [AuthService, LoginService],
   bootstrap: [AppComponent]
