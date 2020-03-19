@@ -5,7 +5,7 @@ import { FormActions, EFormActions } from './form.actions';
 
 const initialState: Array<string> = ['wachukxs', 'passworded'];
 
-export function formReducer(state = initialState, action: FormActions) {
+export function formReducer(state: Array<string> = [...initialState], action: FormActions) {
     switch (action.type) {
         case EFormActions.EDIT_PASSWORD:
             const editedPasswordState: Array<string> = [...initialState];

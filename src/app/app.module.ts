@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -22,14 +22,16 @@ import { formReducer } from './page-one/store/form.reducer';
 const appRoutes: Routes = [
   { path: 'home', component: PageOneComponent },
   { path: '', component: PageTwoComponent },
-  { path: 'product',
+  {
+    path: 'product',
     /* canActivate: [LoginService], */
     canActivateChild: [LoginService],
     component: AProductComponent,
     children: [
       { path: ':id', component: ProductDetailComponent },
       { path: ':id/edit', component: EditProductComponent }
-  ] },
+    ]
+  },
   { path: '**', component: NotFoundComponent }
 ];
 
@@ -48,9 +50,12 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
-    StoreModule.forRoot({form: formReducer})
+    StoreModule.forRoot({
+      form: formReducer
+    })
   ],
   providers: [AuthService, LoginService],
   bootstrap: [AppComponent]

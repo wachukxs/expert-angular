@@ -79,13 +79,33 @@
 
 <hr>
 
+{{pword |async}}
+
+{{uname |async}}
+
 <div *ngFor="let item of morkForm | async">
     {{item}}
 </div>
 
 <br>
 
-<input type="text" name="changepassword" (change)="onFormChange($event)" id="">
+<input type="text" placeholder="password" name="changepassword" (change)="onFormChange($event)" id="">
+<br>
+
+<input type="text" placeholder="username" name="changeusername" (change)="onFormChange2($event)" id="">
 
 <hr>
 
+<!-- <form [formGroup]="profileForm">
+  
+    <label>
+      First Name:
+      <input type="text" (change)="onFormChange($event)" formControlName="firstName">
+    </label>
+  
+    <label>
+      Last Name:
+      <input type="text" (change)="onFormChange2($event)" formControlName="lastName">
+    </label>
+  
+  </form> -->
