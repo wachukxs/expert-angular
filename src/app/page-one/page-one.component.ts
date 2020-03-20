@@ -40,9 +40,11 @@ export class PageOneComponent implements OnInit, OnChanges {
   uname = this.store.pipe(select(selectUsername));
 
   profileForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
+    userName: new FormControl(''),
+    passWord: new FormControl(''),
   });
+
+  test2 = new FormControl('');
 
   /* @ViewChild('f', {}) theForm: NgForm; */
 
@@ -84,13 +86,13 @@ export class PageOneComponent implements OnInit, OnChanges {
     console.log('Submited!', form); // ain't seeing form.value.email|username
   }
 
-  onFormChange(event: any) {
+  onFormChangePassword(event: any) {
     console.log(event, 'new value:', event.target.value);
 
     this.store.dispatch(new EditPassword(event.target.value) );
   }
 
-  onFormChange2(event: any) {
+  onFormChangeUsername(event: any) {
     console.log(event, 'new value:', event.target.value);
 
     this.store.dispatch(new EditUsername(event.target.value) );

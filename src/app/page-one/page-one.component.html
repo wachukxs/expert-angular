@@ -89,23 +89,29 @@
 
 <br>
 
-<input type="text" placeholder="password" name="changepassword" (change)="onFormChange($event)" id="">
+<input type="text" placeholder="password" name="changepassword" (change)="onFormChangePassword($event)" id="">
 <br>
 
-<input type="text" placeholder="username" name="changeusername" (change)="onFormChange2($event)" id="">
+<input type="text" placeholder="username" name="changeusername" (change)="onFormChangeUsername($event)" id="">
 
 <hr>
 
-<!-- <form [formGroup]="profileForm">
+<label>
+    FC test2:
+    <input type="text" [formControl]="test2">
+  </label>
+  {{test2.value}}
+
+<form [formGroup]="profileForm">
   
     <label>
-      First Name:
-      <input type="text" (change)="onFormChange($event)" formControlName="firstName">
+      user Name:
+      <input type="text" (change)="onFormChangeUsername($event)" formControlName="userName`">
     </label>
   
     <label>
-      Last Name:
-      <input type="text" (change)="onFormChange2($event)" formControlName="lastName">
+      pass Word:
+      <input type="text" (change)="onFormChangePassword($event)" formControlName="passWord">
     </label>
   
-  </form> -->
+  </form>
