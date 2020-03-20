@@ -11,6 +11,8 @@ import { FormActions, EditPassword, EditUsername } from './store/form.actions';
 import { IFormState } from './store/form.state';
 import { selectPassword, selectUsername } from './store/form.selectors';
 
+import { FormStateService } from '../form-state.service';
+
 @Component({
   selector: 'app-page-one',
   templateUrl: './page-one.component.html',
@@ -44,6 +46,11 @@ export class PageOneComponent implements OnInit, OnChanges {
     passWord: new FormControl(''),
   });
 
+  fForm = new FormGroup({
+    u: new FormControl(''),
+    p: new FormControl('')
+  });
+
   test2 = new FormControl('');
 
   /* @ViewChild('f', {}) theForm: NgForm; */
@@ -52,9 +59,19 @@ export class PageOneComponent implements OnInit, OnChanges {
     this.showImage = !this.showImage;
   }
 
+
   constructor(private router: Router,
               private productListService: ProductListService,
-              private store: Store<IFormState>) { } // the data type of our initial state
+              private store: Store<IFormState>,
+              public formStateService: FormStateService) { 
+                this.formStateService.form$.subscribe(u => {
+                  console.log('it:::', u);
+                  this.fForm.setValue({
+                    u: u[0],
+                    p: u[1]
+                  });
+                });
+               } // the data type of our initial state
   // or Store<{form: Array<sting> }>
   ngOnInit() {
     console.log('ngOnInit called');
@@ -66,7 +83,13 @@ export class PageOneComponent implements OnInit, OnChanges {
 
     console.log('the obj', this.productListService.getProduct(2));
 
-    console.log('it:::');
+
+    
+
+    /* this.fForm.setValue({
+      u: this.formStateService.form$.subscribe(u => u[0]),
+      p: this.formStateService.form$.subscribe(u => u[1])
+    }); */
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -96,6 +119,14 @@ export class PageOneComponent implements OnInit, OnChanges {
     console.log(event, 'new value:', event.target.value);
 
     this.store.dispatch(new EditUsername(event.target.value) );
+  }
+
+  editP(event: any) {
+    this.formStateService.editForm(1, event.target.value);
+  }
+
+  editU(event: any) {
+    this.formStateService.editForm(0, event.target.value);
   }
 
 }

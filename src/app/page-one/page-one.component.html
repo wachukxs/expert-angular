@@ -106,7 +106,7 @@
   
     <label>
       user Name:
-      <input type="text" (change)="onFormChangeUsername($event)" formControlName="userName`">
+      <input type="text" (change)="onFormChangeUsername($event)" formControlName="userName">
     </label>
   
     <label>
@@ -114,4 +114,22 @@
       <input type="text" (change)="onFormChangePassword($event)" formControlName="passWord">
     </label>
   
+  </form>
+
+  <hr>
+
+  <div *ngFor="let item of formStateService.form$|async">
+      {{item}}
+  </div>
+
+  <form [formGroup]="fForm">
+    <label>
+        edit user Name:
+        <input type="text" (change)="editU($event)" placeholder="userName" formControlName="u">
+      </label>
+    
+      <label>
+        edit pass Word:
+        <input type="text" (change)="editP($event)" placeholder="passWord" formControlName="p">
+      </label>
   </form>
